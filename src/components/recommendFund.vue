@@ -2,7 +2,7 @@
   <div style="  position: relative;" @click="fundDetail()">
     <div class="recommend-item">
       <div class="earnings-info flex-column">
-        <p class="earnings">+{{recommendFund.historyPerformanceYear1}}%</p>
+        <p class="earnings">+{{recommendFund.year1Return ? recommendFund.year1Return :( recommendFund.year1*100).toFixed(2)}}%</p>
         <span class="earnings-text subTitle">近一年收益率</span>
       </div>
       <div class="title-info flex-column">
@@ -16,19 +16,22 @@
 <script>
 export default {
   props: {
-    recommendFund: Object
+    recommendFund: {
+      type:Object,
+      default(){
+        return {}
+      }
+    }
   },
   data() {
     return {};
   },
   methods: {
     fundDetail() {
-      this.$emit("fundDetail");
+      this.$emit("fundDetail",this.recommendFund);
     }
   },
   mounted() {
-    console.log(this.recommendFund);
-    debugger;
   }
 };
 </script>
