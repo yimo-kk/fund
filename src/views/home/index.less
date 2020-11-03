@@ -1,0 +1,169 @@
+@font_color :#FFFFFF;
+
+.font_size {
+    font-size: 14px;
+}
+
+.body {
+    background-color: #F8F7F7;
+}
+
+.banner {
+    background-image: url("../../assets/img/banner.png");
+    width: 375px;
+    height: 160px;
+    background-size: cover;
+
+    .fund-title {
+        font-size: 18px;
+        color: @font_color;
+    }
+
+    .user-login {
+        margin-top: 24px;
+        display: flex;
+
+        .long-btn {
+            width: 86px;
+            height: 34px;
+            border-radius: 17px;
+            border: 1px solid @font_color;
+        }
+
+        .register {
+            .font_size;
+            color: @font_color;
+        }
+
+        .login {
+            margin-left: 30px;
+            .font_size;
+            color: #007E9E;
+            background-color: @font_color;
+        }
+    }
+}
+
+.menus {
+    height: 98px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    background-color: @font_color;
+
+    .menus-list {
+        display: flex;
+        justify-content: space-around;
+
+        .menu-item {
+            .menu-item-img {
+                width: 55px;
+                height: 55px;
+            }
+
+            .menu-item-text {
+                font-size: 14px;
+                color: #333;
+                padding-top: 8px;
+            }
+        }
+    }
+
+}
+
+.recommend-title {
+    padding: 12px 0 13px 0;
+    height: 50px;
+    position: relative;
+
+    .recommend {
+        font-size: 18px;
+        color: #20253C;
+        margin-left: 12px;
+    }
+
+    .recommend::before {
+        content: '';
+        height: 18px;
+        width: 3px;
+        position: absolute;
+        background-color: #007E9E;
+        top: 18px;
+        left: 0;
+    }
+}
+
+.recommend {
+    padding-bottom: 10px;
+}
+
+.wallet {
+    background-image: url("../../assets/img/wallet.png");
+    width: 345px;
+    height: 80px;
+    background-size: 100%;
+    margin-bottom: 10px;
+
+    .wallet-content {
+        margin-bottom: 9px;
+        padding: 14px 0 13px 24px;
+        display: flex;
+        flex-direction: column;
+
+        .wallet-p {
+            font-size: 24px;
+            color: #FFFFFF;
+        }
+
+        .wallet-sapn {
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+    }
+
+}
+
+.wallet-margin {
+    margin-bottom: 9px;
+}
+
+.footer {
+    height: 118px;
+    display: flex;
+    justify-content: space-between;
+
+    .organization {
+        width: 165px;
+        height: 88px;
+        background-image: url('../../assets/img/organization.png'
+            );
+        background-size: cover;
+
+    }
+
+    .footer-padding {
+        padding: 15px 0 0 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .safety {
+        width: 165px;
+        height: 88px;
+        background-image: url('../../assets/img/safety.png');
+        background-size: cover;
+    }
+
+    .footer-p {
+        font-size: 18px;
+        color: #FFFFFF;
+    }
+
+    .footer-span {
+        font-size: 14px;
+        color: #FFFFFF;
+    }
+}
+
+.footer-margin {
+    margin-top: 10px;
+}
