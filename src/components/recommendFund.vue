@@ -59,16 +59,17 @@ export default {
   color: #f74c50;
 }
 .earnings-info {
-  width: 131px;
+  width: 115px;
   padding-left: 20px;
 }
 .title-info {
   border-left: 0.5px solid #eee;
-  padding-left: 28px;
+  padding-left: 20px;
 }
 .title {
   font-size: 16px;
   color: #333333;
+  padding-bottom: 5px;
 }
 .subTitle {
   margin-top: 1px;

@@ -10,9 +10,10 @@ import 'amfe-flexible'
 Vue.config.productionTip = false
 import {
   Toast,
-  Search
+  Search,
+  Loading
 } from "vant";
-Vue.use(Toast).use(Search);
+Vue.use(Toast).use(Search).use(Loading);
 Vue.prototype.$toast = Toast
 new Vue({
   router,

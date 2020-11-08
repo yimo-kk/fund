@@ -15,7 +15,6 @@
         disabled
       />
     </div>
-
     <div class="menus">
       <ul class="menus-list">
         <li
@@ -45,7 +44,10 @@
         <p class="recommend">推荐基金</p>
       </div>
     </div>
-    <div v-for="item in recommendFundList" :key="item.portfolioCode">
+    <div v-if="loading" style="textAlign: center;paddingTop: 15px;">
+      <van-loading type="spinner" color="#1989fa" />
+    </div>
+    <div v-else v-for="item in recommendFundList" :key="item.portfolioCode">
       <recommend-fund
         :recommendFund="item"
         @fundDetail="fundDetail"
@@ -57,13 +59,11 @@
         <p class="recommend">安全保障</p>
       </div>
       <div class="footer">
-        <div class="organization footer-padding">
-          <p class="footer-p">挂牌机构合作</p>
-          <span class="footer-span">合法合规</span>
+        <div class="organization footer-padding" @click=" regardTo"> 
+          <p class="footer-p">关于奕丰</p>
         </div>
-        <div class="safety footer-padding">
-          <p class="footer-p">用户信息安全</p>
-          <span class="footer-span">国家公安部认证</span>
+        <div class="safety footer-padding" @click="team">
+          <p class="footer-p">投研团队</p>
         </div>
       </div>
     </div>
@@ -81,7 +81,8 @@ export default {
   props: {},
   data() {
     return {
-      url: process.env.VUE_APP_REQURST_BASE_URL,
+      loading: false,
+      url: process.env.VUE_APP_BASE_URL,
       banner: require("../../assets/img/banner.png"),
       searchData: "",
       menuList: [
@@ -140,73 +141,97 @@ export default {
       window.location.href = `${this.url}referral/cash-wallet/details?referral=SYN`;
     },
     getRecommendFundData() {
+      this.loading = true;
       recommendFundGroupData()
         .then((res) => {
           if (res.code === "0000") {
-            res.data.data[0].portfolioSlogan = "紧贴市场 把握热点主题基金";
-            res.data.data[0].portfolioName = "优诺家 I 行业先锋混合";
-            res.data.data[2].portfolioSlogan = "均衡配置 基金也有性价比";
-            res.data.data[2].portfolioName = "优诺家 I 超额收益之王";
-            res.data.data[1].portfolioSlogan = "历经牛熊 十亿级资金跟投";
-            res.data.data[1].portfolioName = "优诺家 I 稳稳的幸福";
-            this.recommendFundList = res.data.data;
+            let arr = [];
+            res.data.data[6].portfolioSlogan = "气定神闲 稳健增值 ";
+            res.data.data[6].portfolioName = `优诺家 | 稳稳的幸福`;
+            arr[0] = res.data.data[6];
+            res.data.data[4].portfolioSlogan = "均衡配置 攻守兼备 ";
+            res.data.data[4].portfolioName = `优诺家 | 均衡配置首选`;
+            arr[1] = res.data.data[4];
+            // 暂时
+            res.data.data[0].portfolioSlogan = "多元策略 稳中求进  ";
+            res.data.data[0].portfolioName = `优诺家 | 超额收益之王`;
+            arr[2] = res.data.data[0];
+            res.data.data[3].portfolioSlogan = "紧贴市场 把握热点主题基金";
+            res.data.data[3].portfolioName = `优诺家 | 行业先锋混合`;
+            arr[3] = res.data.data[3];
+            res.data.data[5].portfolioSlogan = "明星经理集结 老司机创超额收益 ";
+            res.data.data[5].portfolioName = `优诺家 | 五星经理擒牛`;
+            arr[4] = res.data.data[5];
+            this.recommendFundList = arr;
             this.getData();
           }
         })
         .catch((e) => {
+          console.log(e)
+          this.loading = false;
           this.$toast(e.message);
         });
     },
     getData() {
       let params = {
-        fundCodes: "050026,001984,000083,000751,519732,000217,110007",
+        fundCodes: "050026,110011,000746,001668,000934,000751,519732",
       };
       recommendFundData(params)
         .then((res) => {
+          this.loading = false;
           let arr = [];
-          res.data.data[0].portfolioSlogan = "全民刚需 掘金“药神”板块";
-          res.data.data[0].portfolioName = "博时医疗保健";
-          // arr[0]= res.data.data[0];
-          res.data.data[1].portfolioSlogan = "放眼全球 万里挑医好药企";
-          res.data.data[1].portfolioName = "上投摩根中国生物医药(QDII)";
-          // this.recommendFundList[4]= res.data.data[4];
-          // arr[1]= res.data.data[1];
-          res.data.data[2].portfolioSlogan = "名家操盘 打造内需消费名片";
-          res.data.data[2].portfolioName = "汇添富消费行业混合";
-          // this.recommendFundList[5]= res.data.data[5];
-          // arr[2]= res.data.data[5];
-          res.data.data[3].portfolioSlogan = "优选新兴产业 能涨抗跌业绩抢眼";
-          res.data.data[3].portfolioName = "嘉实新兴产业股票";
-          // this.recommendFundList[6]= res.data.data[6];
-          //  arr[3]= res.data.data[6];
-          res.data.data[4].portfolioSlogan = "长跑冠军 基金界“奥斯卡”获奖者";
-          res.data.data[4].portfolioName = "交银双息平衡混合";
-          // this.recommendFundList[7]= res.data.data[7];
-          //  arr[4]= res.data.data[7];
-          res.data.data[5].portfolioSlogan = "全球量化宽松 把握黄金投资";
-          res.data.data[5].portfolioName = "华安黄金易 ETF 连接 C";
-          // this.recommendFundList[8]= res.data.data[8];
-          //  arr[5]= res.data.data[6];
-          res.data.data[6].portfolioSlogan = "明星债基 低风险投资首选";
-          res.data.data[6].portfolioName = "易方达稳健收益债券";
-          // this.recommendFundList[9]= res.data.data[9];
-          this.recommendFundList.push(...res.data.data);
-          console.log(this.recommendFundList);
+          res.data.data[3].portfolioSlogan = "全民刚需 掘金“药神”板块";
+          res.data.data[3].portfolioName = "博时医疗保健";
+          arr[0] = res.data.data[3];
+          res.data.data[0].portfolioSlogan = "高成长性股票 竞争优势明显 ";
+          res.data.data[0].portfolioName = "易方达中小盘混合";
+          arr[1] = res.data.data[0];
+          res.data.data[4].portfolioSlogan = "精选质量高公司 大盘蓝筹值得持有 ";
+          res.data.data[4].portfolioName = "招商行业精选";
+          arr[2] = res.data.data[4];
+          res.data.data[5].portfolioSlogan = "全球科技引擎 价值投资长期看涨 ";
+          res.data.data[5].portfolioName = "汇添富全球互联网混合";
+          arr[3] = res.data.data[5];
+          res.data.data[6].portfolioSlogan =
+            "优选大中华优质股票 力争基金长期增值";
+          res.data.data[6].portfolioName = "国富大中华精选混合";
+          arr[4] = res.data.data[6];
+          res.data.data[2].portfolioSlogan = "优选新兴产业 能涨抗跌业绩抢眼";
+          res.data.data[2].portfolioName = "嘉实新兴产业股票 ";
+          arr[5] = res.data.data[2];
+          res.data.data[1].portfolioSlogan = "长跑冠军基金界“奥斯卡”获奖者";
+          res.data.data[1].portfolioName = "交银双息混合";
+          arr[6] = res.data.data[1];
+          this.recommendFundList.push(...arr);
         })
         .catch((e) => {
+          console.log(e)
+          this.loading = false;
           this.$toast(e.message);
         });
     },
     fundDetail(data) {
-      console.log(data);
-      debugger;
       let url;
-      data.portfolioCode
-        ? (url = `referral/recommended-portfolio/portfolio-leaflet/${data.portfolioCode}?portfolioCode=${data.portfolioCode}&isH5=Y&referral=SYN`)
-        : (url = `referral/factsheet?fundCode=${data.fundCode}&referral=SYN`);
-
+      console.log(data.portfolioCode);
+      console.log(data.fundCode);
+      if (data.portfolioCode == "IRESEARCH012") {
+        // https://m.ifastps.com.cn/referral/recommended-portfolio/portfolio-leaflet/IRESEARCH009?portfolioCode=IRESEARCH009&isH5=Y&referral=SYN
+        url = `referral/recommended-portfolio/portfolio-leaflet/${data.portfolioCode}?portfolioCode=${data.portfolioCode}&isH5=Y&referral=SYN `;
+      } else {
+        url = `referral/${
+          data.fundCode
+            ? "factsheet?fundCode"
+            : "recommended-portfolio/details?portfolioCode"
+        }=${data.fundCode ? data.fundCode : data.portfolioCode}&referral=SYN`;
+      }
       window.location.href = this.url + url;
     },
+    regardTo(){
+      window.location.href = `${this.url}referral/personal-profile/about-ifast?referral=SYN `
+    },
+    team(){
+      window.location.href = `https://ossmobile.ifastps.com.cn/html/YJSH5/professional.html  `
+    }
   },
 };
 </script>
