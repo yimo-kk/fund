@@ -146,22 +146,37 @@ export default {
         .then((res) => {
           if (res.code === "0000") {
             let arr = [];
-            res.data.data[6].portfolioSlogan = "气定神闲 稳健增值 ";
-            res.data.data[6].portfolioName = `优诺家 | 稳稳的幸福`;
-            arr[0] = res.data.data[6];
-            res.data.data[4].portfolioSlogan = "均衡配置 攻守兼备 ";
-            res.data.data[4].portfolioName = `优诺家 | 均衡配置首选`;
-            arr[1] = res.data.data[4];
-            // 暂时
-            res.data.data[0].portfolioSlogan = "多元策略 稳中求进  ";
-            res.data.data[0].portfolioName = `优诺家 | 超额收益之王`;
-            arr[2] = res.data.data[0];
-            res.data.data[3].portfolioSlogan = "紧贴市场 把握热点主题基金";
-            res.data.data[3].portfolioName = `优诺家 | 行业先锋混合`;
-            arr[3] = res.data.data[3];
-            res.data.data[5].portfolioSlogan = "明星经理集结 老司机创超额收益 ";
-            res.data.data[5].portfolioName = `优诺家 | 五星经理擒牛`;
-            arr[4] = res.data.data[5];
+            res.data.data.forEach(item=>{
+              switch (item.portfolioCode) {
+                case "PF0002":
+                  item.portfolioSlogan = "气定神闲 稳健增值 ";
+                  item.portfolioName = `优诺家 | 稳稳的幸福`;
+                  arr[0] = item
+                  break;
+               case "PF0003":
+                  item.portfolioSlogan = "均衡配置 攻守兼备 ";
+                  item.portfolioName = `优诺家 | 均衡配置首选`;
+                    arr[1] = item
+                  break;
+               case "FP0004":
+                  item.portfolioSlogan = "多元策略 稳中求进 ";
+                  item.portfolioName = `优诺家 | 超额收益之王`;
+                    arr[2] = item
+                  break;
+               case "IRESEARCH009":
+                  item.portfolioSlogan = "紧贴市场 把握热点主题基金 ";
+                  item.portfolioName = `优诺家 | 行业先锋混合`;
+                    arr[3] = item
+                  break;
+               case "IRESEARCH012":
+                  item.portfolioSlogan = "明星经理集结 老司机创超额收益 ";
+                  item.portfolioName = `优诺家 | 五星经理擒牛`;
+                    arr[4] = item
+                  break;
+                default:
+                  break;
+              }
+            })
             this.recommendFundList = arr;
             this.getData();
           }
@@ -180,28 +195,47 @@ export default {
         .then((res) => {
           this.loading = false;
           let arr = [];
-          res.data.data[3].portfolioSlogan = "全民刚需 掘金“药神”板块";
-          res.data.data[3].portfolioName = "博时医疗保健";
-          arr[0] = res.data.data[3];
-          res.data.data[0].portfolioSlogan = "高成长性股票 竞争优势明显 ";
-          res.data.data[0].portfolioName = "易方达中小盘混合";
-          arr[1] = res.data.data[0];
-          res.data.data[4].portfolioSlogan = "精选质量高公司 大盘蓝筹值得持有 ";
-          res.data.data[4].portfolioName = "招商行业精选";
-          arr[2] = res.data.data[4];
-          res.data.data[5].portfolioSlogan = "全球科技引擎 价值投资长期看涨 ";
-          res.data.data[5].portfolioName = "汇添富全球互联网混合";
-          arr[3] = res.data.data[5];
-          res.data.data[6].portfolioSlogan =
-            "优选大中华优质股票 力争基金长期增值";
-          res.data.data[6].portfolioName = "国富大中华精选混合";
-          arr[4] = res.data.data[6];
-          res.data.data[2].portfolioSlogan = "优选新兴产业 能涨抗跌业绩抢眼";
-          res.data.data[2].portfolioName = "嘉实新兴产业股票 ";
-          arr[5] = res.data.data[2];
-          res.data.data[1].portfolioSlogan = "长跑冠军基金界“奥斯卡”获奖者";
-          res.data.data[1].portfolioName = "交银双息混合";
-          arr[6] = res.data.data[1];
+          res.data.data.forEach(item=>{
+            switch (item.fundCode) {
+              case "050026":
+                item.portfolioSlogan = "全民刚需 掘金“药神”板块";
+                item.portfolioName = "博时医疗保健";
+                arr[0] = item
+                break;
+              case "110011":
+                  item.portfolioSlogan = "高成长性股票 竞争优势明显 ";
+                  item.portfolioName = "易方达中小盘混合";
+                  arr[1] =item
+                break;
+              case "000746":
+                item.portfolioSlogan = "精选质量高公司 大盘蓝筹值得持有 ";
+                item.portfolioName = "招商行业精选";
+                arr[2] = item
+                break;
+              case "001668":
+                item.portfolioSlogan = "全球科技引擎 价值投资长期看涨 ";
+                item.portfolioName = "汇添富全球互联网混合";
+                arr[3] =item
+                break;
+              case "000934":
+                item.portfolioSlogan = "优选大中华优质股票 力争基金长期增值";
+                item.portfolioName = "国富大中华精选混合";
+                arr[4] = item
+                break;
+              case "000751":
+                item.portfolioSlogan = "优选新兴产业 能涨抗跌业绩抢眼";
+                item.portfolioName = "嘉实新兴产业股票 ";
+                arr[5] =item
+                break;
+              case "519732":
+                item.portfolioSlogan = "长跑冠军基金界“奥斯卡”获奖者";
+                item.portfolioName = "交银双息混合";
+                arr[6] = item
+                break;
+              default:
+                break;
+            }
+          })
           this.recommendFundList.push(...arr);
         })
         .catch((e) => {

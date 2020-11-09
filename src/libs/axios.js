@@ -11,7 +11,7 @@ NProgress.configure({
 }) 
 
 // 配置公共baseUrl
-axios.defaults.baseURL = process.env.VUE_APP_REQURST_BASE_URL;
+axios.defaults.baseURL = process.env.VUE_APP_REQURST_BASE_URL + '/gateway';
 
 // 请求拦截器
 axios.interceptors.request.use(config => {
@@ -28,7 +28,6 @@ axios.interceptors.response.use(data => {
 
 }, error => {
     NProgress.done()
-
     return Promise.reject(new Error(error))
 })
 

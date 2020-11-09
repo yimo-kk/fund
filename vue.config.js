@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 module.exports = {
-  publicPath: '/',
+  publicPath: '/syn/',
   devServer: {
     port: 3000,
     host: "0.0.0.0",
